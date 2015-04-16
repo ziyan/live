@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+    --clean \
+    --ignore-system-defaults \
+    --mode debian \
+    --iso-application live \
+    --iso-volume live \
+    --iso-preparer ziyan \
+    --iso-publisher ziyan \
+    --linux-flavours "amd64" \
+    --linux-packages "linux-image-3.16.0-0.bpo.4 linux-headers-3.16.0-0.bpo.4" \
+    --source "false" \
+    --backports "true" \
+    --updates "true" \
+    --archive-areas "main contrib non-free" \
+    --parent-archive-areas "main contrib non-free" \
+    --apt-options "--yes --force-yes --no-install-recommends -t wheezy-backports" \
+    --bootappend-live "boot=live components persistence persistence-encryption=luks" \
+"${@}"

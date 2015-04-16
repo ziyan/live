@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# add root password
+echo "root:live" | chpasswd
+
+# upgrade
+apt-get upgrade -y --force-yes --no-install-recommends -t wheezy-backports
+
+# remove unused packages
+apt-get clean
+apt-get autoremove --yes
+
+# no udev persistent net rules
+rm -f /etc/udev/rules.d/70-persistent-net.rules
+echo "# " > /etc/udev/rules.d/75-persistent-net-generator.rules
+
+exit 0
